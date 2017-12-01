@@ -19,7 +19,7 @@ namespace TwitterApp
             Auth.SetUserCredentials(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
             var user = User.GetAuthenticatedUser();
 
-            Console.WriteLine("Please write your post");
+            Console.WriteLine("Please write your tweet");
             string tweetBody = Console.ReadLine();
 
             if (tweetBody.Length <= 140)
