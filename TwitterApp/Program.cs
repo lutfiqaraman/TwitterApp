@@ -17,21 +17,28 @@ namespace TwitterApp
             var ACCESS_TOKEN_SECRET = "your ACCESS_TOKEN_SECRET is here";
 
             Auth.SetUserCredentials(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-            var user = User.GetAuthenticatedUser();
+            var AuthenticatedUser = User.GetAuthenticatedUser();
 
-            Console.WriteLine("Please write your tweet:");
-            string tweetBody = Console.ReadLine();
-
-            if (tweetBody.Length <= 140)
+            if (AuthenticatedUser == null)
             {
-                Tweet.PublishTweet(tweetBody);
-                Console.WriteLine("Published successfully");
-            }  
+                var latestException = ExceptionHandler.GetLastException();
+                Console.WriteLine("Error occured : {0} ", latestException.TwitterDescription);
+            }
             else
             {
-                Console.WriteLine("Faild to publish, your tweet is more than 140 characters");
+                Console.WriteLine("Please write your tweet:");
+                string tweetBody = Console.ReadLine();
+
+                if (tweetBody.Length <= 140)
+                {
+                    Tweet.PublishTweet(tweetBody);
+                    Console.WriteLine("Published successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Faild to publish, your tweet is more than 140 characters");
+                }
             }
-                
 
             Console.ReadKey();
 
